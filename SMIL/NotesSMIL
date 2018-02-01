@@ -1,0 +1,17 @@
+SMIL : Synchronized Media Interaction Language
+
+"<par>"
+Balise qui définit les séquences qui se jouent en parallèle
+Ses attributs sont 'begin','dur','endsync'.
+
+"<seq>"
+Balise qui définit les médias qui se jouent à la suite 
+Ses attributs sont 'repeatCount'.
+
+"<img>", "<video>" et "<audio>" sont les balises pour les différents types de médias.
+
+
+Sources : 
+http://multimedia.ulb.ac.be/i135g4/tutoriel_tdm.html Tutoriel SMIL
+http://w3schools.sinsixx.com/smil/default.asp.htm Tutoriel SMIL
+https://www.w3.org/TR/SMIL3/ Documentation
