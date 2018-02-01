@@ -13,7 +13,7 @@
 <body>
 
 <seq repeatCount="indefinite">
-<video src="animation.mp4" alt="zapoï"  type="mp4" region="videos" />
+<video src="lemon.gif" alt="zapoï"  type="mp4" region="videos" />
 <img src="lime.jpg"  dur="2" region="images" id="monImage"/>
 <!-- <video src="animation.mp4" alt="zapoï"  type="mp4" region="videos" />	-->		
 
