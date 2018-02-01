@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE smil PUBLIC "-//W3C//DTD SMIL 2.0//EN" 
+"http://www.w3.org/2001/SMIL20/SMIL20.dtd">
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language" xml:lang="en" title="SMIL template">
+<head>
+<layout>
+<root-layout  width="1000px" height="500px" backgroundColor="yellow"/>
+<region id="videos" left="50px" top="50px" width="350px" height="350px"/>
+<region id="images" left="450px" top="50px" width="350px" height="350px"/>
+</layout>  
+</head>
+
+<body>
+
+<seq repeatCount="indefinite">
+<video src="animation.mp4" alt="zapoï"  type="mp4" region="videos" />
+<img src="tacos_inverse.jpg"  dur="2" region="images" id="monImage"/>
+<!-- <video src="animation.mp4" alt="zapoï"  type="mp4" region="videos" />	-->		
+
+</seq>
+
+</body>
+</smil>
