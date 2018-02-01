@@ -1,4 +1,6 @@
 SMIL : Synchronized Media Interaction Language
+N.B : Pour lire les fichiers SMIL il faut télécharger le logiciel Ambulant Player
+Le site w3schools prétend qu'InternetExplorer 5.5 et supérieur peut lire les animations sans add-on mais jusqu'ici aucun essaie n'a foncitonné.
 
 "<par>"
 Balise qui définit les séquences qui se jouent en parallèle
@@ -15,3 +17,4 @@ Sources :
 http://multimedia.ulb.ac.be/i135g4/tutoriel_tdm.html Tutoriel SMIL
 http://w3schools.sinsixx.com/smil/default.asp.htm Tutoriel SMIL
 https://www.w3.org/TR/SMIL3/ Documentation
+http://www.ambulantplayer.org/
