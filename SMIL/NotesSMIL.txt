@@ -1,16 +1,21 @@
 = SMIL : Synchronized Media Interaction Language =
 N.B : Pour lire les fichiers SMIL il faut télécharger le logiciel Ambulant Player
 Le site w3schools prétend qu'InternetExplorer 5.5 et supérieur peut lire les animations sans add-on mais jusqu'ici aucun essaie n'a foncitonné.
-== Génératlités sur les balises==
+== Génératlités sur les balises ==
+
 "<par>"
 Balise qui définit les séquences qui se jouent en parallèle
 Ses attributs sont 'begin','dur','endsync'.
+Si l'on choisit une durée qui est supérieure à la durée des éléments qui constitue cette balise 'par' alors on peut préciser pour chaque élément le comportement à adopter avec l'attribut 'fill' 
 
 "<seq>"
 Balise qui définit les médias qui se jouent à la suite 
 Ses attributs sont 'repeatCount'.
 
 "<img>", "<video>" et "<audio>" sont les balises pour les différents types de médias.
+Ces balises ont des attributs de source 'src', de tag 'alt', de démarage 'begin', de durée 'dur', 'fill', de zone dans laquelle les afficher 'region', ...
+
+
 
 == Pour faire des essais ==
 
