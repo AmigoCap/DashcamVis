@@ -25,7 +25,7 @@ if __name__=='__main__':
     white_pix = 0
     black_pix = 0
     # Load an color image in color or grayscale
-    img   = cv.imread('bustop.jpg',0)   
+    img   = cv.imread('bikers.jpg',0)   
         
     #img   = cv.medianBlur(img,5)
     _,thimg = cv.threshold(img,127,255,cv.THRESH_BINARY)
@@ -37,7 +37,14 @@ if __name__=='__main__':
             else:
                 white_pix=white_pix+1
     
-    print(black_pix/(white_pix+black_pix))
+    avg = black_pix/(white_pix+black_pix)
+    if(avg>0.70):
+        print("night")
+    elif(avg>0.40 and avg<0.60):
+        print("afternon")
+    elif(avg<0.40):
+        print("day")
+    
     
     #img = np.float32(img) / 255.0
     """
