@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <style type="text/css">
+      svg {
+        border: solid 1px #aaa;
+      }
+
+      .selection {
+        fill: none;
+        stroke: red;
+      }
+
+      .square {
+        fill: none;
+        stroke: black;
+        stroke-width: 1;
+      }
+    </style>
+  </head>
+  <body>
+  <input type="area" value="div"></input>
+
+  <textarea name="output" rows="10" cols="30" id="output"><div></textarea>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script src="js/d3-gridding.js"></script>
+    <script>
+
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+var div = ""
+
+var w = 750,
+    h = 450,
+    r = 120;
+
+var isXChecked = true,
+    isYChecked = true;
+
+var width = 300,
+    height = 200,
+    dragbarw = 20;
+
+var drag = d3.drag()
+    .on("drag", dragmove);
+
+var dragright = d3.drag()
+    .on("drag", rdragresize);
+
+var dragleft = d3.drag()
+    .on("drag", ldragresize);
+
+var dragtop = d3.drag()
+    .on("drag", tdragresize);
+
+var dragbottom = d3.drag()
+    .on("drag", bdragresize);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", w)
+    .attr("height", h)
+    .on("mousedown", mousedown)
+    .on("mouseup", mouseup);
+
+function mousedown() {
+
+    var m = d3.mouse(this);
+
+    rect = svg.append("rect")
+        .attr("class", "selection")
+        .attr("x", m[0])
+        .attr("y", m[1])
+        .attr("height", 0)
+        .attr("width", 0);
+
+    svg.on("mousemove", mousemove);
+}
+
+function mousemove(d) {
+
+    var m = d3.mouse(this);
+
+    rect.attr("width", Math.max(0, m[0] - +rect.attr("x")))
+        .attr("height", Math.max(0, m[1] - +rect.attr("y")));
+}
+
+function mouseup() {
+
+    rect.remove();
+    svg.on("mousemove", null);
+
+    create_rectangle(+rect.attr("x"), +rect.attr("y"), +rect.attr("width"), +rect.attr("height"));
+}
+
+var newg = [],
+    dragrect = [],
+    dragbarleft = [],
+    dragbarright = [],
+    dragbartop = [],
+    dragbarbottom = [],
+    n = 0,
+    gridding = [];
+
+function create_rectangle(x, y, w, h) {
+
+  var index = n++;
+
+  gridding[index] = d3.gridding()
+    .size([w, h])
+    .offset([x, y])
+    .mode("grid");
+
+  newg[index] = svg.append("g")
+        .data([{x: x, y: y, w: w, h: h, index: index}]);
+
+  drawgrid(x, y, w, h, index);
+
+  dragrect[index] = newg[index].append("rect")
+        .attr("id", "active")
+        .attr("x", function(d) { return d.x; })
+        .attr("y", function(d) { return d.y; })
+        .attr("width", function(d) { return d.w; })
+        .attr("height", function(d) { return d.h; })
+        .attr("fill-opacity", 0)
+        .attr("cursor", "move")
+        .call(drag);
+
+  dragbarleft[index] = newg[index].append("rect")
+        .attr("x", function(d) { return d.x - (dragbarw/2); })
+        .attr("y", function(d) { return d.y + (dragbarw/2); })
+        .attr("height", function(d) { return d.h - dragbarw})
+        .attr("id", "dragleft")
+        .attr("width", dragbarw)
+        .attr("fill", "lightgray")
+        .attr("fill-opacity", .5)
+        .attr("cursor", "ew-resize")
+        .call(dragleft);
+
+  dragbarright[index] = newg[index].append("rect")
+        .attr("x", function(d) { return d.x + d.w - (dragbarw/2); })
+        .attr("y", function(d) { return d.y + (dragbarw/2); })
+        .attr("id", "dragright")
+        .attr("height", function(d) { return d.h - dragbarw; })
+        .attr("width", dragbarw)
+        .attr("fill", "lightgray")
+        .attr("fill-opacity", .5)
+        .attr("cursor", "ew-resize")
+        .call(dragright);
+
+  dragbartop[index] = newg[index].append("rect")
+        .attr("x", function(d) { return d.x + (dragbarw/2); })
+        .attr("y", function(d) { return d.y - (dragbarw/2); })
+        .attr("height", dragbarw)
+        .attr("id", "dragleft")
+        .attr("width", function(d) { return d.w - dragbarw; })
+        .attr("fill", "lightgray")
+        .attr("fill-opacity", .5)
+        .attr("cursor", "ns-resize")
+        .call(dragtop);
+
+  dragbarbottom[index] = newg[index].append("rect")
+        .attr("x", function(d) { return d.x + (dragbarw/2); })
+        .attr("y", function(d) { return d.y + d.h - (dragbarw/2); })
+        .attr("id", "dragright")
+        .attr("height", dragbarw)
+        .attr("width", function(d) { return d.w - dragbarw; })
+        .attr("fill", "lightgray")
+        .attr("fill-opacity", .5)
+        .attr("cursor", "ns-resize")
+        .call(dragbottom);
+
+}
+
+function dragmove(d) {
+
+  drawgrid(d.x, d.y, d.w, d.h, d.index);
+
+  dragrect[d.index].attr("x", d.x = Math.max(0, Math.min(w - width, d3.event.x)))
+  dragrect[d.index].attr("x", d.x = Math.max(0, Math.min(w - width, d3.event.x)))
+  dragbarleft[d.index].attr("x", function(d) { return d.x - (dragbarw/2); })
+  dragbarright[d.index].attr("x", function(d) { return d.x + d.w - (dragbarw/2); })
+  dragbartop[d.index].attr("x", function(d) { return d.x + (dragbarw/2); })
+  dragbarbottom[d.index].attr("x", function(d) { return d.x + (dragbarw/2); })
+
+  dragrect[d.index].attr("y", d.y = Math.max(0, Math.min(h - d.h, d3.event.y)));
+  dragbarleft[d.index].attr("y", function(d) { return d.y + (dragbarw/2); });
+  dragbarright[d.index].attr("y", function(d) { return d.y + (dragbarw/2); });
+  dragbartop[d.index].attr("y", function(d) { return d.y - (dragbarw/2); });
+  dragbarbottom[d.index].attr("y", function(d) { return d.y + d.h - (dragbarw/2); });
+
+
+
+  output = "";
+
+  output = "<style>\n";
+  newg.forEach(function(d, i) {
+    output += "#id_" + d.data()[0].index + " {\n";
+    output += "\tposition: fixed;\n";
+    output += "\tleft: " + d.data()[0].x + ";\n";
+    output += "\ttop: " + d.data()[0].y + ";\n";
+    output += "\twidth: " + d.data()[0].w + ";\n";
+    output += "\theight: " + d.data()[0].h + ";\n";
+    output += "\tbackground-color: " + color(i) + ";\n";
+
+    output += "\n}\n";
+  });
+  output += "</style>\n\n";
+
+//  output = "<body>";
+  newg.forEach(function(d) {
+    output += "<div id='id_" + d.data()[0].index + "'>";
+//    output += "left: " + d.data()[0].x
+    output += "</div>";
+    output += "\n";
+  });
+
+
+  d3.select("#output").html(output);
+
+}
+
+function ldragresize(d) {
+
+      var oldx = d.x;
+     //Max x on the right is x + width - dragbarw
+     //Max x on the left is 0 - (dragbarw/2)
+      d.x = Math.max(0, Math.min(d.x + d.w - (dragbarw / 2), d3.event.x));
+      d.w = d.w + (oldx - d.x);
+      dragbarleft[d.index].attr("x", function(d) { return d.x - (dragbarw / 2); });
+
+      dragrect[d.index].attr("x", function(d) { return d.x; })
+                       .attr("width", d.w);
+
+     dragbartop[d.index].attr("x", function(d) { return d.x + (dragbarw/2); })
+                        .attr("width", d.w - dragbarw)
+     dragbarbottom[d.index].attr("x", function(d) { return d.x + (dragbarw/2); })
+                        .attr("width", d.w - dragbarw);
+
+     drawgrid(d.x, d.y, d.w, d.h, d.index);
+}
+
+function rdragresize(d) {
+
+     //Max x on the left is x - width
+     //Max x on the right is width of screen + (dragbarw/2)
+     var dragx = Math.max(d.x + (dragbarw/2), Math.min(w, d.x + d.w + d3.event.dx));
+
+     //recalculate width
+     d.w = dragx - d.x;
+
+     //move the right drag handle
+     dragbarright[d.index]
+        .attr("x", function(d) { return dragx - (dragbarw/2) });
+
+     //resize the drag rectangle
+     //as we are only resizing from the right, the x coordinate does not need to change
+     dragrect[d.index]
+        .attr("width", d.w);
+     dragbartop[d.index]
+        .attr("width", d.w - dragbarw)
+     dragbarbottom[d.index]
+        .attr("width", d.w - dragbarw)
+
+     drawgrid(d.x, d.y, d.w, d.h, d.index);
+}
+
+function tdragresize(d) {
+
+   if (isYChecked) {
+      var oldy = d.y;
+     //Max x on the right is x + width - dragbarw
+     //Max x on the left is 0 - (dragbarw/2)
+      d.y = Math.max(0, Math.min(d.y + d.h - (dragbarw / 2), d3.event.y));
+      d.h = d.h + (oldy - d.y);
+      dragbartop[d.index]
+        .attr("y", function(d) { return d.y - (dragbarw / 2); });
+
+      dragrect[d.index]
+        .attr("y", function(d) { return d.y; })
+        .attr("height", height);
+
+      dragbarleft[d.index]
+        .attr("y", function(d) { return d.y + (dragbarw/2); })
+        .attr("height", height - dragbarw);
+      dragbarright[d.index]
+        .attr("y", function(d) { return d.y + (dragbarw/2); })
+        .attr("height", height - dragbarw);
+
+     drawgrid(d.x, d.y, d.w, d.h, d.index);
+  }
+}
+
+function bdragresize(d) {
+   if (isYChecked) {
+     //Max x on the left is x - width
+     //Max x on the right is width of screen + (dragbarw/2)
+     var dragy = Math.max(d.y + (dragbarw/2), Math.min(h, d.y + d.h + d3.event.dy));
+
+     //recalculate width
+     d.h = dragy - d.y;
+
+     //move the right drag handle
+     dragbarbottom[d.index]
+        .attr("y", function(d) { return dragy - (dragbarw/2) });
+
+     //resize the drag rectangle
+     //as we are only resizing from the right, the x coordinate does not need to change
+     dragrect[d.index]
+        .attr("height", d.h);
+     dragbarleft[d.index]
+        .attr("height", d.h - dragbarw);
+     dragbarright[d.index]
+        .attr("height", d.h - dragbarw);
+
+     drawgrid(d.x, d.y, d.w, d.h, d.index);
+  }
+}
+
+var nb_data = 49,
+  var_value = "__value";
+
+var data =  d3.range(nb_data);
+
+function drawgrid(x, y, w, h, index) {
+
+  gridding[index]
+    .size([w, h])
+    .offset([x, y]);
+
+  var griddingData = gridding[index](data);
+
+  var squares = newg[index].selectAll(".square")
+      .data(griddingData);
+
+  squares.enter().append("rect")
+      .attr("class", "square")
+      .attr("width", function(d) { return d.width; })
+      .attr("height", function(d) { return d.height; })
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  squares
+      .attr("width", function(d) { return d.width; })
+      .attr("height", function(d) { return d.height; })
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+
+  squares.exit().remove();
+
+}
+
+    </script>
+  </body>
+</html>
