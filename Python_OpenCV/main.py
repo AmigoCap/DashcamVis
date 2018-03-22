@@ -11,17 +11,21 @@ import matplotlib.patches as mpatches
 from matplotlib import pyplot as plt
 import os
 
+plt.ioff()
+
 def weather(weath):
 	if(weath=="day"):
-		return cv.imread("Sun-icon.png",3)
+		return cv.imread("Sun-icon.png",cv.IMREAD_UNCHANGED)
 	if(weath=="afternon/earlymorning"):
-		return cv.imread("Clouds-icon.png",3)
+		return cv.imread("Clouds-icon.png",cv.IMREAD_UNCHANGED)
 	if(weath=="night"):
-		return cv.imread("Moon-icon.png",3)
+		return cv.imread("Moon-icon.png",cv.IMREAD_UNCHANGED)
 
 def blend_offsets(img1,img2,x_offset,y_offset):
-	#return img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] = blend_transparent(img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1],::],img2)
-    img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] = img2
+	#return img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] =
+    img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1],::]=blend_transparent(img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1],::],img2)
+
+    #img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] = img2
     return  img1
 
 def blend_transparent(face_img, overlay_t_img):
@@ -44,32 +48,33 @@ def blend_transparent(face_img, overlay_t_img):
     # And finally just add them together, and rescale it back to an 8bit integer image    
     return np.uint8(cv.addWeighted(face_part, 255.0, overlay_part, 255.0, 0.0))
 
-def fig2data ( fig ):
+def fig2data ( fig ,transparency=False):
     """
     @brief Convert a Matplotlib figure to a 4D numpy array with RGBA channels and return it
     @param fig a matplotlib figure
     @return a numpy 3D array of RGBA values
     """
+    fig.savefig("./fig.png",transparent=transparency)
     # draw the renderer
-    fig.canvas.draw ( )
- 
-    # Get the RGBA buffer from the figure
-    w,h = fig.canvas.get_width_height()
-    buf = np.fromstring ( fig.canvas.tostring_argb(), dtype=np.uint8 )
-    buf.shape = ( w, h,4 )
- 
-    # canvas.tostring_argb give pixmap in ARGB mode. Roll the ALPHA channel to have it in RGBA mode
-    buf = np.roll ( buf, 3, axis = 2 )
-
-    bufbgr = cv.cvtColor(buf,cv.COLOR_RGB2BGR)
-
-    return bufbgr
+#    fig.canvas.draw ( )
+# 
+#    # Get the RGBA buffer from the figure
+#    w,h = fig.canvas.get_width_height()
+#    buf = np.fromstring ( fig.canvas.tostring_argb(), dtype=np.uint8 )
+#    buf.shape = ( w, h,4 )
+#    # canvas.tostring_argb give pixmap in ARGB mode. Roll the ALPHA channel to have it in RGBA mode
+#    buf = np.roll ( buf, 3, axis = 2 )
+#
+#    bufbgr = cv.cvtColor(buf,cv.COLOR_RGB2BGR)
+    
+    imgoutput=cv.imread("fig.png",cv.IMREAD_UNCHANGED)
+    return imgoutput
 
 def reconstitue(listing):
 	j=0
 	for i in listing:
-		img1 = cv.imread('output_presentation/frame%d.jpg'%j)
-		img2 = cv.imread('informations_output_presentation/image_%d.png'%j)
+		img1 = cv.imread('output_presentation/frame_%d.jpg'%j)
+		img2 = cv.imread('informations_output_presentation/image_%d.png'%j,cv.IMREAD_UNCHANGED)
 		x_offset=y_offset=50
 		#imgf = face_recognection(img1)
 		img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] = img2
@@ -94,7 +99,7 @@ def face_recognection(img):
         flags = cv.CASCADE_SCALE_IMAGE    
     )
     
-    print("Found {0} faces!".format(len(faces)))
+    #print("Found {0} faces!".format(len(faces)))
     
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
@@ -117,8 +122,8 @@ def histogramme(img,cannaux,_id):
         green_patch = mpatches.Patch(color='green', label='green intensity')
         plt.legend(handles=[red_patch,blue_patch,green_patch])
         '''
-        plt.savefig('informations_output_presentation/image_%d.png'%_id)
-        plt.gcf().clear()
+        plt.savefig('informations_output_presentation/image_%d.png'%_id,bbox_inches='tight')
+        #plt.gcf().clear()
 
 def daylight(img):
     white_pix = 0
@@ -132,11 +137,11 @@ def daylight(img):
             else:
                 white_pix=white_pix+1
     avg = black_pix/(white_pix+black_pix)
-    if(avg>0.70):
+    if(avg>0.50):
         return "night"
-    elif(avg>0.40 and avg<0.60):
+    elif(avg>0.30 and avg<=0.50):
         return "afternon/earlymorning"
-    elif(avg<0.40):
+    elif(avg<=0.30):
         return "day"
 
 def timeline(array_images):
@@ -147,19 +152,22 @@ def timeline(array_images):
    
     #boucle sur les frames pour retirer des informations
     for i in range(len(array_images)):
-        figure1 = plt.figure()
-        plot1    = figure1.add_subplot (111) 
-        weth        = daylight(array_images[i])
+        local_image = cv.imread(array_images[i],cv.IMREAD_UNCHANGED)
+        figure1     = plt.figure()
+        plot1       = figure1.add_subplot (111)
+        weth        = daylight(local_image)
         img_weather = weather(weth)
         for j,col in enumerate(color):
-            histr = cv.calcHist([array_images[i]],[j],None,[256],[0,256])
+            histr = cv.calcHist([local_image],[j],None,[256],[0,256])
             plot1.plot(histr,color = col)
-            #plot1.xlim([0,256])
-            #plot1.ylim([0,25100])
-        histoimg = fig2data(figure1)
-        array_images[i],nf= face_recognection(array_images[i])
-        array_images[i]   = blend_offsets(array_images[i], histoimg, 50, 50)
-        array_images[i]   = blend_offsets(array_images[i], img_weather, 200, 200)
+            plot1.set_xlim([0,256])
+            plot1.set_ylim([0,26000])
+            plt.close(figure1)
+        histoimg = fig2data(figure1,transparency=False)
+        local_image,nf= face_recognection(local_image)
+        local_image   = blend_offsets(local_image, histoimg, 50, 70)
+        local_image   = blend_offsets(local_image, img_weather, 500,40)
+        cv.imwrite('informations_output_presentation/out_%d.png'%i, local_image)
         x.append(i)
         y.append(nf)
         #figure1.clf()
@@ -171,14 +179,16 @@ def timeline(array_images):
             Y.append(y[i])
 
     for i in range(len(array_images)):
+        local_image = cv.imread('informations_output_presentation/out_%d.png'%i,cv.IMREAD_UNCHANGED)
         figure2 = plt.figure()
         plot2   = figure2.add_subplot (111) 
         plot2.plot(x,Y,'b-')
         plot2.plot([x[i]],[Y[i]],'ro')
+        plt.close(figure2)
         timelineimg = fig2data(figure2)
-        array_images[i] = blend_offsets(array_images[i], timelineimg, 300, 300)
+        local_image = blend_offsets(local_image, timelineimg, 50, 350)
         #figure2.clf()
-        cv.imwrite('final_presentation/out_%d.png'%i, array_images[i])
+        cv.imwrite('final_presentation/out_%d.png'%i, local_image)
     
     # Read the image
     
@@ -195,15 +205,28 @@ def video_images(path):
       print('Read a new frame: ', success)
       cv.imwrite("output_presentation/frame_%d.jpg" % count, image)     # save frame as JPEG file
       count += 1
-      if count==10:
+      if count==1200:
           break        
 
-if __name__=='__main__': 
-    #video_images("accident.mp4")
-    file_batch= sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
-    img_batch = list(map(lambda x: cv.imread("output_presentation/"+x,3),file_batch))
-    timeline(img_batch[:10])
+def images_video(array_images): # ------------------> A modifier
+    local_image = cv.imread("final_presentation/"+array_images[0],cv.IMREAD_UNCHANGED)
+    #convert from RGB of PIL to BGR of OpenCV
+    frameH, frameW, channels = local_image.shape
+    #fourcc =  cv.cv.CV_FOURCC('M','J','P','G')
+    fourcc  = cv.VideoWriter_fourcc(*'MJPG')
+    video = cv.VideoWriter("output.avi", fourcc, 24, (frameW,frameH), 1)
+    
+    for i in range(len(array_images)):
+        video.write( cv.imread("final_presentation/"+array_images[i],cv.IMREAD_UNCHANGED))
+    video.release()      
 
+if __name__=='__main__': 
+    #video_images("lighting-transition.mp4")
+    file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+    img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
+    timeline(img_batch[:1200])
+    file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+    images_video(file_batch_final)
     #listing=os.listdir("informations_output_presentation")
     '''
     for i in range(560,1254): # 100 images
