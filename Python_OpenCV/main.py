@@ -4,7 +4,7 @@ Created on Wed Feb  7 19:44:45 2018
 
 @author: Achraf Baiz
 """
-
+import subprocess
 import cv2 as cv
 import numpy as np
 import matplotlib.patches as mpatches
@@ -219,6 +219,10 @@ def images_video(array_images): # ------------------> A modifier
     for i in range(len(array_images)):
         video.write( cv.imread("final_presentation/"+array_images[i],cv.IMREAD_UNCHANGED))
     video.release()      
+def upload_video_youtube():
+    request="""python upload_youtube.py --file="output.avi" --title="Dashcamvideo" --description="No description" --keywords="dashcam" --category="22" --privacyStatus="unlisted" """
+    subprocess.call(request)
+
 
 if __name__=='__main__': 
     #video_images("lighting-transition.mp4")
@@ -227,6 +231,7 @@ if __name__=='__main__':
     timeline(img_batch[:1200])
     file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
     images_video(file_batch_final)
+    upload_video_youtube()
     #listing=os.listdir("informations_output_presentation")
     '''
     for i in range(560,1254): # 100 images
