@@ -7,12 +7,13 @@ Created on Wed Feb  7 19:44:45 2018
 from __future__ import unicode_literals
 import argparse
 import subprocess
-import cv2 as cv
 import numpy as np
 import matplotlib.patches as mpatches
 from matplotlib import pyplot as plt
 import os
+import cv2
 import youtube_dl
+
 
 
 
@@ -20,15 +21,31 @@ plt.ioff()
 
 def weather(weath):
 	if(weath=="day"):
-		return cv.imread("Sun-icon.png",cv.IMREAD_UNCHANGED)
+		return cv2.imread("Sun-icon.png",cv2.IMREAD_UNCHANGED)
 	if(weath=="afternon/earlymorning"):
-		return cv.imread("Clouds-icon.png",cv.IMREAD_UNCHANGED)
+		return cv2.imread("Clouds-icon.png",cv2.IMREAD_UNCHANGED)
 	if(weath=="night"):
-		return cv.imread("Moon-icon.png",cv.IMREAD_UNCHANGED)
+		return cv2.imread("Moon-icon.png",cv2.IMREAD_UNCHANGED)
 
-def blend_offsets(img1,img2,x_offset,y_offset):
+def blend_offsets(img1,img2,x_offset,y_offset,resize_img=1):
 	#return img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] =
-    img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1],::]=blend_transparent(img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1],::],img2)
+    w_local=img1.shape[1]
+    h_local=img1.shape[0]
+    w_mask=img2.shape[1]
+    h_mask=img2.shape[0]
+    if (w_mask+x_offset*w_local>w_local ):
+        coeffx=(1-x_offset)*w_local/(w_mask+10)
+    else:
+        coeffx=1
+    if(h_mask+y_offset*h_local>h_local):
+        coeffy=(1-y_offset)*h_local/(h_mask+10)
+    else:
+        coeffy=1
+    coeff=min(coeffx,coeffy)
+    img2=cv2.resize(img2, (0,0), fx=coeff*resize_img ,fy=coeff*resize_img) 
+    y_off_pix=int(img1.shape[0]*y_offset)
+    x_off_pix=int(img1.shape[1]*x_offset)
+    img1[y_off_pix:y_off_pix+img2.shape[0], x_off_pix:x_off_pix+img2.shape[1],::]=blend_transparent(img1[y_off_pix:y_off_pix+img2.shape[0], x_off_pix:x_off_pix+img2.shape[1],::],img2)
 
     #img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] = img2
     return  img1
@@ -42,8 +59,8 @@ def blend_transparent(face_img, overlay_t_img):
     background_mask = 255 - overlay_mask
 
     # Turn the masks into three channel, so we can use them as weights
-    overlay_mask = cv.cvtColor(overlay_mask, cv.COLOR_GRAY2BGR)
-    background_mask = cv.cvtColor(background_mask, cv.COLOR_GRAY2BGR)
+    overlay_mask = cv2.cvtColor(overlay_mask, cv2.COLOR_GRAY2BGR)
+    background_mask = cv2.cvtColor(background_mask, cv2.COLOR_GRAY2BGR)
 
     # Create a masked out face image, and masked out overlay
     # We convert the images to floating point in range 0.0 - 1.0
@@ -51,7 +68,7 @@ def blend_transparent(face_img, overlay_t_img):
     overlay_part = (overlay_img * (1 / 255.0)) * (overlay_mask * (1 / 255.0))
 
     # And finally just add them together, and rescale it back to an 8bit integer image    
-    return np.uint8(cv.addWeighted(face_part, 255.0, overlay_part, 255.0, 0.0))
+    return np.uint8(cv2.addWeighted(face_part, 255.0, overlay_part, 255.0, 0.0))
 
 def fig2data ( fig ,transparency=False):
     """
@@ -72,28 +89,28 @@ def fig2data ( fig ,transparency=False):
 #
 #    bufbgr = cv.cvtColor(buf,cv.COLOR_RGB2BGR)
     
-    imgoutput=cv.imread("fig.png",cv.IMREAD_UNCHANGED)
+    imgoutput=cv2.imread("fig.png",cv2.IMREAD_UNCHANGED)
     return imgoutput
 
 def reconstitue(listing):
 	j=0
 	for i in listing:
-		img1 = cv.imread('output_presentation/frame_%d.jpg'%j)
-		img2 = cv.imread('informations_output_presentation/image_%d.png'%j,cv.IMREAD_UNCHANGED)
+		img1 = cv2.imread('output_presentation/frame_%d.jpg'%j)
+		img2 = cv2.imread('informations_output_presentation/image_%d.png'%j,cv2.IMREAD_UNCHANGED)
 		x_offset=y_offset=50
 		#imgf = face_recognection(img1)
 		img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] = img2
-		cv.imwrite('final_presentation/out_%d.png'%j, img1)
+		cv2.imwrite('final_presentation/out_%d.png'%j, img1)
 		j+=1
         
 def face_recognection(img):
     #xml face shape recognition path
     cascPath = "haarcascade_frontalface_default.xml"
     # Create the haar cascade
-    faceCascade = cv.CascadeClassifier(cascPath)
+    faceCascade = cv2.CascadeClassifier(cascPath)
     
     # Read the image
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     # Detect faces in the image
     faces = faceCascade.detectMultiScale(
@@ -101,14 +118,14 @@ def face_recognection(img):
         scaleFactor=1.1,
         minNeighbors=5,
         minSize=(30, 30),
-        flags = cv.CASCADE_SCALE_IMAGE    
+        flags = cv2.CASCADE_SCALE_IMAGE    
     )
     
     #print("Found {0} faces!".format(len(faces)))
     
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
-        cv.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
     
     return img,len(faces)
 
@@ -116,7 +133,7 @@ def histogramme(img,cannaux,_id):
     if cannaux==3:
         color = ('b','g','r')
         for i,col in enumerate(color):
-            histr = cv.calcHist([img],[i],None,[256],[0,256])
+            histr = cv2.calcHist([img],[i],None,[256],[0,256])
             plt.plot(histr,color = col)
             plt.xlim([0,256])
             plt.ylim([0,25100])
@@ -133,8 +150,8 @@ def histogramme(img,cannaux,_id):
 def daylight(img):
     white_pix = 0
     black_pix = 0
-    gray_image = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    _,thimg    = cv.threshold(img,127,255,cv.THRESH_BINARY)
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _,thimg    = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
     for i in range(gray_image.shape[0]):
         for j in range(gray_image.shape[1]):
             if gray_image.item(i,j)==0:
@@ -157,22 +174,22 @@ def timeline(array_images):
    
     #boucle sur les frames pour retirer des informations
     for i in range(len(array_images)):
-        local_image = cv.imread(array_images[i],cv.IMREAD_UNCHANGED)
+        local_image = cv2.imread(array_images[i],cv2.IMREAD_UNCHANGED)
         figure1     = plt.figure()
         plot1       = figure1.add_subplot (111)
         weth        = daylight(local_image)
         img_weather = weather(weth)
         for j,col in enumerate(color):
-            histr = cv.calcHist([local_image],[j],None,[256],[0,256])
+            histr = cv2.calcHist([local_image],[j],None,[256],[0,256])
             plot1.plot(histr,color = col)
             plot1.set_xlim([0,256])
             plot1.set_ylim([0,26000])
             plt.close(figure1)
         histoimg = fig2data(figure1,transparency=False)
         local_image,nf= face_recognection(local_image)
-        local_image   = blend_offsets(local_image, histoimg, 50, 70)
-        local_image   = blend_offsets(local_image, img_weather, 500,40)
-        cv.imwrite('informations_output_presentation/out_%d.png'%i, local_image)
+        local_image   = blend_offsets(local_image, histoimg, 0.1, 0.1,0.5)
+        local_image   = blend_offsets(local_image, img_weather, 0.5,0.7)
+        cv2.imwrite('informations_output_presentation/out_%d.png'%i, local_image)
         x.append(i)
         y.append(nf)
         #figure1.clf()
@@ -184,49 +201,48 @@ def timeline(array_images):
             Y.append(y[i])
 
     for i in range(len(array_images)):
-        local_image = cv.imread('informations_output_presentation/out_%d.png'%i,cv.IMREAD_UNCHANGED)
+        local_image = cv2.imread('informations_output_presentation/out_%d.png'%i,cv2.IMREAD_UNCHANGED)
         figure2 = plt.figure()
         plot2   = figure2.add_subplot (111) 
         plot2.plot(x,Y,'b-')
         plot2.plot([x[i]],[Y[i]],'ro')
         plt.close(figure2)
         timelineimg = fig2data(figure2)
-        local_image = blend_offsets(local_image, timelineimg, 50, 350)
+        local_image = blend_offsets(local_image, timelineimg, 0.3, 0.8,0.5)
         #figure2.clf()
-        cv.imwrite('final_presentation/out_%d.png'%i, local_image)
+        cv2.imwrite('final_presentation/out_%d.png'%i, local_image)
     
     # Read the image
     
 
         
 def video_images(path,maxframes=1200):
-    assert type(path)==str
-    vidcap = cv.VideoCapture(path)
+    vidcap = cv2.VideoCapture(path)
     success,image = vidcap.read()
     count = 0
     success = True
     while success:
       success,image = vidcap.read()
       print('Read a new frame: ', success)
-      cv.imwrite("output_presentation/frame_%d.jpg" % count, image)     # save frame as JPEG file
+      cv2.imwrite("output_presentation/frame_%d.jpg" % count, image)     # save frame as JPEG file
       count += 1
       if count==maxframes:
           break        
 
 def images_video(array_images,framerate=24): # ------------------> A modifier
-    local_image = cv.imread("final_presentation/"+array_images[0],cv.IMREAD_UNCHANGED)
+    local_image = cv2.imread("final_presentation/"+array_images[0],cv2.IMREAD_UNCHANGED)
     #convert from RGB of PIL to BGR of OpenCV
     frameH, frameW, channels = local_image.shape
-    #fourcc =  cv.cv.CV_FOURCC('M','J','P','G')
-    fourcc  = cv.VideoWriter_fourcc(*'MJPG')
-    video = cv.VideoWriter("output.avi", fourcc, framerate, (frameW,frameH), 1)
+    fourcc =  cv2.VideoWriter_fourcc(*'MJPG')
+    #fourcc  = cv.VideoWriter_fourcc(*)
+    video = cv2.VideoWriter("output.avi", fourcc, framerate, (frameW,frameH), 1)
     
     for i in range(len(array_images)):
-        video.write( cv.imread("final_presentation/"+array_images[i],cv.IMREAD_UNCHANGED))
+        video.write( cv2.imread("final_presentation/"+array_images[i],cv2.IMREAD_UNCHANGED))
     video.release()      
 def upload_video_youtube():
     request="""python upload_youtube.py --file="output.avi" --title="Dashcamvideo" --description="No description" --keywords="dashcam" --category="22" --privacyStatus="unlisted" """
-    subprocess.call(request)
+    subprocess.call(request,shell=True)
 
 def create_parser():
     parser=argparse.ArgumentParser(description='Image processer')
@@ -243,11 +259,11 @@ def create_parser():
     
 def create_folders(path="."):
     if(os.path.isdir(path+"/output_presentation/") is not True):
-        os.makedirs(path+"/output_presentation/", exist_ok=True)
+        os.makedirs(path+"/output_presentation/")
     if(os.path.isdir(path+"/informations_output_presentation/") is not True):
-        os.makedirs(path+"/informations_output_presentation/", exist_ok=True)
+        os.makedirs(path+"/informations_output_presentation/")
     if(os.path.isdir(path+"/final_presentation/") is not True):
-        os.makedirs(path+"/final_presentation/", exist_ok=True)
+        os.makedirs(path+"/final_presentation/")
 
 def delete_folders(f1,f2,f3):
     for file in f1+f2+f3:
@@ -257,10 +273,9 @@ def delete_folders(f1,f2,f3):
 if __name__=='__main__': 
     parser=create_parser()
     args = parser.parse_args()
-    #download video
+
     ydl_opts = {'outtmpl':'output_vid'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        meta = ydl.extract_info(args.link, download=False) 
         ydl.download([args.link])
     args = parser.parse_args()
     create_folders()
@@ -274,12 +289,10 @@ if __name__=='__main__':
             img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
             timeline(img_batch[:args.maxframes])
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+
             images_video(file_batch_final,args.rate)
+            file_batch_final=list(map(lambda x:"final_presentation/"+x, file_batch_final))
             delete_folders(img_batch,final_img_batch,file_batch_final)
-<<<<<<< HEAD
-            #uploading video
-=======
->>>>>>> 367c9c7f4842986f9cf96509d52684eb01ba3b5f
             upload_video_youtube() 
     elif(args.maxframes==None and args.rate!=None):
             video_images(ydl_opts["outtmpl"])
@@ -288,16 +301,11 @@ if __name__=='__main__':
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
             timeline(img_batch)
-            file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            file_batch_final = sorted(os.listdir("final_presentation/"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
-<<<<<<< HEAD
-            delete_folders(img_batch,final_img_batch,file_batch_final) 
-            #uploading video
-            upload_video_youtube()
-=======
+            file_batch_final=list(map(lambda x:"final_presentation/"+x, file_batch_final))
             delete_folders(img_batch,final_img_batch,file_batch_final)
             upload_video_youtube() 
->>>>>>> 367c9c7f4842986f9cf96509d52684eb01ba3b5f
     elif(args.maxframes!=None and args.rate==None):
             video_images(ydl_opts["outtmpl"],args.maxframes)
             out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
@@ -305,16 +313,11 @@ if __name__=='__main__':
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
             timeline(img_batch[:args.maxframes])
-            file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            file_batch_final = sorted(os.listdir("final_presentation/"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,24)
+            file_batch_final=list(map(lambda x:"final_presentation/"+x, file_batch_final))
             delete_folders(img_batch,final_img_batch,file_batch_final) 
-<<<<<<< HEAD
-            #uploading video
             upload_video_youtube()
-    
-=======
-            upload_video_youtube()
->>>>>>> 367c9c7f4842986f9cf96509d52684eb01ba3b5f
     #listing=os.listdir("informations_output_presentation")
     '''
     for i in range(560,1254): # 100 images
