@@ -12,7 +12,6 @@ import numpy as np
 import matplotlib.patches as mpatches
 from matplotlib import pyplot as plt
 import os
-
 import youtube_dl
 
 
@@ -242,6 +241,18 @@ def create_parser():
     parser.add_argument('--json', metavar='True or False' , type=str, help='the json file of config')
     return parser
     
+def create_folders(path="."):
+    if(os.path.isdir(path+"/output_presentation/") is not True):
+        os.makedirs(path+"/output_presentation/", exist_ok=True)
+    if(os.path.isdir(path+"/informations_output_presentation/") is not True):
+        os.makedirs(path+"/informations_output_presentation/", exist_ok=True)
+    if(os.path.isdir(path+"/final_presentation/") is not True):
+        os.makedirs(path+"/final_presentation/", exist_ok=True)
+
+def delete_folders(f1,f2,f3):
+    for file in f1+f2+f3:
+        os.remove(file)
+
 
 if __name__=='__main__': 
     parser=create_parser()
@@ -252,30 +263,39 @@ if __name__=='__main__':
         meta = ydl.extract_info(args.link, download=False) 
         ydl.download([args.link])
     args = parser.parse_args()
+    create_folders()
     if(args.link==None):
         exit()
     elif(args.maxframes!=None and args.rate!=None):
             video_images(ydl_opts["outtmpl"])
+            out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            final_img_batch = list(map(lambda x:"informations_output_presentation/"+x,out_batch))
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
             timeline(img_batch[:args.maxframes])
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
+            delete_folders(img_batch,final_img_batch,file_batch_final) 
     elif(args.maxframes==None and args.rate!=None):
             video_images(ydl_opts["outtmpl"])
+            out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            final_img_batch = list(map(lambda x:"informations_output_presentation/"+x,out_batch))
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
             timeline(img_batch)
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
+            delete_folders(img_batch,final_img_batch,file_batch_final) 
     elif(args.maxframes!=None and args.rate==None):
             video_images(ydl_opts["outtmpl"])
+            out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            final_img_batch = list(map(lambda x:"informations_output_presentation/"+x,out_batch))
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
             timeline(img_batch[:args.maxframes])
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,24)
-
+            delete_folders(img_batch,final_img_batch,file_batch_final) 
     #framing video
     video_images(ydl_opts["outtmpl"])
     file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
