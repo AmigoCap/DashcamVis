@@ -4,12 +4,18 @@ Created on Wed Feb  7 19:44:45 2018
 
 @author: Achraf Baiz
 """
+from __future__ import unicode_literals
+import argparse
 import subprocess
 import cv2 as cv
 import numpy as np
 import matplotlib.patches as mpatches
 from matplotlib import pyplot as plt
 import os
+
+import youtube_dl
+
+
 
 plt.ioff()
 
@@ -225,7 +231,14 @@ def upload_video_youtube():
 
 
 if __name__=='__main__': 
-    #video_images("lighting-transition.mp4")
+    parser=argparse.ArgumentParser(description='Image processer')
+    parser.add_argument("--link", required=True, help="Link video to download")
+    args = parser.parse_args()
+    ydl_opts = {'outtmpl':'output_vid'}
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        meta = ydl.extract_info(args.link, download=False) 
+        ydl.download([args.link])
+    video_images(ydl_opts["outtmpl"])
     file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
     img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
     timeline(img_batch[:1200])
