@@ -199,7 +199,7 @@ def timeline(array_images):
     
 
         
-def video_images(path):
+def video_images(path,maxframes=1200):
     assert type(path)==str
     vidcap = cv.VideoCapture(path)
     success,image = vidcap.read()
@@ -210,7 +210,7 @@ def video_images(path):
       print('Read a new frame: ', success)
       cv.imwrite("output_presentation/frame_%d.jpg" % count, image)     # save frame as JPEG file
       count += 1
-      if count==1200:
+      if count==maxframes:
           break        
 
 def images_video(array_images,framerate=24): # ------------------> A modifier
@@ -267,7 +267,7 @@ if __name__=='__main__':
     if(args.link==None):
         exit()
     elif(args.maxframes!=None and args.rate!=None):
-            video_images(ydl_opts["outtmpl"])
+            video_images(ydl_opts["outtmpl"],args.maxframes)
             out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             final_img_batch = list(map(lambda x:"informations_output_presentation/"+x,out_batch))
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
@@ -276,7 +276,10 @@ if __name__=='__main__':
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
             delete_folders(img_batch,final_img_batch,file_batch_final)
+<<<<<<< HEAD
             #uploading video
+=======
+>>>>>>> 367c9c7f4842986f9cf96509d52684eb01ba3b5f
             upload_video_youtube() 
     elif(args.maxframes==None and args.rate!=None):
             video_images(ydl_opts["outtmpl"])
@@ -287,11 +290,16 @@ if __name__=='__main__':
             timeline(img_batch)
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
+<<<<<<< HEAD
             delete_folders(img_batch,final_img_batch,file_batch_final) 
             #uploading video
             upload_video_youtube()
+=======
+            delete_folders(img_batch,final_img_batch,file_batch_final)
+            upload_video_youtube() 
+>>>>>>> 367c9c7f4842986f9cf96509d52684eb01ba3b5f
     elif(args.maxframes!=None and args.rate==None):
-            video_images(ydl_opts["outtmpl"])
+            video_images(ydl_opts["outtmpl"],args.maxframes)
             out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             final_img_batch = list(map(lambda x:"informations_output_presentation/"+x,out_batch))
             file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
@@ -300,9 +308,13 @@ if __name__=='__main__':
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,24)
             delete_folders(img_batch,final_img_batch,file_batch_final) 
+<<<<<<< HEAD
             #uploading video
             upload_video_youtube()
     
+=======
+            upload_video_youtube()
+>>>>>>> 367c9c7f4842986f9cf96509d52684eb01ba3b5f
     #listing=os.listdir("informations_output_presentation")
     '''
     for i in range(560,1254): # 100 images
