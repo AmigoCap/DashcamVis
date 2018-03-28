@@ -275,7 +275,9 @@ if __name__=='__main__':
             timeline(img_batch[:args.maxframes])
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
-            delete_folders(img_batch,final_img_batch,file_batch_final) 
+            delete_folders(img_batch,final_img_batch,file_batch_final)
+            #uploading video
+            upload_video_youtube() 
     elif(args.maxframes==None and args.rate!=None):
             video_images(ydl_opts["outtmpl"])
             out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
@@ -286,6 +288,8 @@ if __name__=='__main__':
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,args.rate)
             delete_folders(img_batch,final_img_batch,file_batch_final) 
+            #uploading video
+            upload_video_youtube()
     elif(args.maxframes!=None and args.rate==None):
             video_images(ydl_opts["outtmpl"])
             out_batch  = sorted(os.listdir("informations_output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
@@ -296,17 +300,9 @@ if __name__=='__main__':
             file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
             images_video(file_batch_final,24)
             delete_folders(img_batch,final_img_batch,file_batch_final) 
-    #framing video
-    video_images(ydl_opts["outtmpl"])
-    file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
-    img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
-    #creating graphs
-    timeline(img_batch[:1200])
-    file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
-    #compiling video
-    images_video(file_batch_final)
-    #uploading video
-    upload_video_youtube()
+            #uploading video
+            upload_video_youtube()
+    
     #listing=os.listdir("informations_output_presentation")
     '''
     for i in range(560,1254): # 100 images
