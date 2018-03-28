@@ -214,13 +214,15 @@ def video_images(path):
       if count==1200:
           break        
 
-def images_video(array_images): # ------------------> A modifier
+def images_video(array_images,framerate=24): # ------------------> A modifier
+    if framerate==None:
+        framerate=24
     local_image = cv.imread("final_presentation/"+array_images[0],cv.IMREAD_UNCHANGED)
     #convert from RGB of PIL to BGR of OpenCV
     frameH, frameW, channels = local_image.shape
     #fourcc =  cv.cv.CV_FOURCC('M','J','P','G')
     fourcc  = cv.VideoWriter_fourcc(*'MJPG')
-    video = cv.VideoWriter("output.avi", fourcc, 24, (frameW,frameH), 1)
+    video = cv.VideoWriter("output.avi", fourcc, framerate, (frameW,frameH), 1)
     
     for i in range(len(array_images)):
         video.write( cv.imread("final_presentation/"+array_images[i],cv.IMREAD_UNCHANGED))
@@ -234,16 +236,21 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description='Image processer')
     parser.add_argument("--link", required=True, help="Link video to download")
     args = parser.parse_args()
+    #download video
     ydl_opts = {'outtmpl':'output_vid'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         meta = ydl.extract_info(args.link, download=False) 
         ydl.download([args.link])
+    #framing video
     video_images(ydl_opts["outtmpl"])
     file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
     img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
+    #creating graphs
     timeline(img_batch[:1200])
     file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+    #compiling video
     images_video(file_batch_final)
+    #uploading video
     upload_video_youtube()
     #listing=os.listdir("informations_output_presentation")
     '''
