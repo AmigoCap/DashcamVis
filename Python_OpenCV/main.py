@@ -215,8 +215,6 @@ def video_images(path):
           break        
 
 def images_video(array_images,framerate=24): # ------------------> A modifier
-    if framerate==None:
-        framerate=24
     local_image = cv.imread("final_presentation/"+array_images[0],cv.IMREAD_UNCHANGED)
     #convert from RGB of PIL to BGR of OpenCV
     frameH, frameW, channels = local_image.shape
@@ -231,16 +229,53 @@ def upload_video_youtube():
     request="""python upload_youtube.py --file="output.avi" --title="Dashcamvideo" --description="No description" --keywords="dashcam" --category="22" --privacyStatus="unlisted" """
     subprocess.call(request)
 
-
-if __name__=='__main__': 
+def create_parser():
     parser=argparse.ArgumentParser(description='Image processer')
     parser.add_argument("--link", required=True, help="Link video to download")
+    # nombre de frames à traiter
+    parser.add_argument('--maxframes',metavar='frames', type=int, help='Maximum Number of frames to use in video processing')
+    #framerate à utiliser lors de la reconstitution de la video
+    parser.add_argument('--rate', metavar='framerate' , type=int, help='define frame rate of the reconstitued video (24 by default)')
+    #position des graphes [gauche ou à droit]
+    parser.add_argument('--pos', metavar='position' , type=str, help='define position')
+    #configuration directe à partir d'un fichier configuration
+    parser.add_argument('--json', metavar='True or False' , type=str, help='the json file of config')
+    return parser
+    
+
+if __name__=='__main__': 
+    parser=create_parser()
     args = parser.parse_args()
     #download video
     ydl_opts = {'outtmpl':'output_vid'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         meta = ydl.extract_info(args.link, download=False) 
         ydl.download([args.link])
+    args = parser.parse_args()
+    if(args.link==None):
+        exit()
+    elif(args.maxframes!=None and args.rate!=None):
+            video_images(ydl_opts["outtmpl"])
+            file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
+            timeline(img_batch[:args.maxframes])
+            file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            images_video(file_batch_final,args.rate)
+    elif(args.maxframes==None and args.rate!=None):
+            video_images(ydl_opts["outtmpl"])
+            file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
+            timeline(img_batch)
+            file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            images_video(file_batch_final,args.rate)
+    elif(args.maxframes!=None and args.rate==None):
+            video_images(ydl_opts["outtmpl"])
+            file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            img_batch = list(map(lambda x:"output_presentation/"+x,file_batch))
+            timeline(img_batch[:args.maxframes])
+            file_batch_final = sorted(os.listdir("final_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
+            images_video(file_batch_final,24)
+
     #framing video
     video_images(ydl_opts["outtmpl"])
     file_batch = sorted(os.listdir("output_presentation"),key=lambda x : int(x.replace(".","_").split("_")[1]))
