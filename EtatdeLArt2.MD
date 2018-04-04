@@ -43,3 +43,11 @@ De la même manière que pour des vidéos de voiture, les vidéos a contenu spor
 Il faut pouvoir montrer au spectateur l'action sans que les informations annexes ne gâche son expérience.
 ![tennis](images/tennis.png)
 <a href="https://www.youtube.com/watch?v=9Rt5v_SPk6Y">source</a>
+
+## Jeux vidéos
+* Mario et le machine learning</br>
+Ici on a deux captures d'écran de vidéos qui tentent d'expliquer comment une personne a réussi a apprendre à une machin à jouer à Mario et MarioKart. 
+![mario](images/mario.png)
+<a href="https://www.youtube.com/watch?v=qv6UVOQ0F44">source</a><br/>
+![mario2](images/mario2.png)
+<a href="https://www.youtube.com/watch?v=Ipi40cb_RsI">source</a>
