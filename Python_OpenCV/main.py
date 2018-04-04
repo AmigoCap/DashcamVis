@@ -29,6 +29,7 @@ def weather(weath):
 
 def blend_offsets(img1,img2,x_offset,y_offset,resize_img=1):
 	#return img1[y_offset:y_offset+img2.shape[0], x_offset:x_offset+img2.shape[1]] =
+    img2=cv2.resize(img2, (0,0), fx=resize_img ,fy=resize_img)
     w_local=img1.shape[1]
     h_local=img1.shape[0]
     w_mask=img2.shape[1]
@@ -42,7 +43,7 @@ def blend_offsets(img1,img2,x_offset,y_offset,resize_img=1):
     else:
         coeffy=1
     coeff=min(coeffx,coeffy)
-    img2=cv2.resize(img2, (0,0), fx=coeff*resize_img ,fy=coeff*resize_img) 
+    img2=cv2.resize(img2, (0,0), fx=coeff ,fy=coeff) 
     y_off_pix=int(img1.shape[0]*y_offset)
     x_off_pix=int(img1.shape[1]*x_offset)
     img1[y_off_pix:y_off_pix+img2.shape[0], x_off_pix:x_off_pix+img2.shape[1],::]=blend_transparent(img1[y_off_pix:y_off_pix+img2.shape[0], x_off_pix:x_off_pix+img2.shape[1],::],img2)
@@ -188,7 +189,7 @@ def timeline(array_images):
         histoimg = fig2data(figure1,transparency=False)
         local_image,nf= face_recognection(local_image)
         local_image   = blend_offsets(local_image, histoimg, 0.1, 0.1,0.5)
-        local_image   = blend_offsets(local_image, img_weather, 0.5,0.7)
+        local_image   = blend_offsets(local_image, img_weather, 0.1,0.8)
         cv2.imwrite('informations_output_presentation/out_%d.png'%i, local_image)
         x.append(i)
         y.append(nf)
@@ -208,7 +209,7 @@ def timeline(array_images):
         plot2.plot([x[i]],[Y[i]],'ro')
         plt.close(figure2)
         timelineimg = fig2data(figure2)
-        local_image = blend_offsets(local_image, timelineimg, 0.3, 0.8,0.5)
+        local_image = blend_offsets(local_image, timelineimg, 0.1, 0.5,0.5)
         #figure2.clf()
         cv2.imwrite('final_presentation/out_%d.png'%i, local_image)
     
