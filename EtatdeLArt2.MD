@@ -34,7 +34,7 @@ Dans cette vidéo de rally, on voit par exemple des graphiques renseignant sur l
 * Formule 1 <br/>
 On peut voir dans cette vidéo un compteur en semi transparence qui permet d’avoir énormément d’informations sur l’état de la conduite sans empêcher la vue sur l’ensemble de la course. Bien sûr ici le but est d’ajouter au spectacle, des informations supplémentaires.
 On peut voir que ce type de diagramme mixte permet de d’inclure énormément d’informations: on a par exemple de l’information sur les tours par minute du moteur, un information sur la position du levier de vitesse, la vélocité du véhicule et l’utilisation des pédales
-![f1](src)
+![f1](images/F1_mixt_chart.png)
 <a href="https://www.youtube.com/watch?v=6yXv9SeahV8">source</a>
 
 ## Sports
