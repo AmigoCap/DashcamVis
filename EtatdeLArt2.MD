@@ -38,6 +38,7 @@ On peut voir que ce type de diagramme mixte permet de d’inclure énormément d
 <a href="https://www.youtube.com/watch?v=6yXv9SeahV8">source</a>
 
 ## Sports
+* Tennis
 De la même manière que pour des vidéos de voiture, les vidéos a contenu sportif sont souvent accompagnées soit de graphiques en périphérie de l'image, soit de graphiques en plein écran utilisés lors de séquence où l'action est 'en pose'.
 Il faut pouvoir montrer au spectateur l'action sans que les informations annexes ne gâche son expérience.
 ![tennis](images/tennis.png)
