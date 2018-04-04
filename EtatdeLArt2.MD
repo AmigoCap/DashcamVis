@@ -7,9 +7,10 @@ Le but de ce document est de présenter les différentes visualisations actuelle
 Ce type de vidéos s'adresse à un public pas forcément toujours éduqué sur le sujet, c'est pourquoi il faut que l'auteur fasse des choses simples, visuelles et qui ne demandent pas une forte capacité d'analyse.
 La plupart du temps, il est important que l'attention du spectateur se concentre sur le graphique lui-même c'est pourquoi l'auteur le place en plein écran.
 * Line chart <br/>
+Ce graphique nous donne une indication de proportion et est simple de compréhension.
 ![line chart](images/kurz_linechart.png)
 <a href="https://www.youtube.com/watch?v=rvskMHn0sqQ">source</a>
-Ce graphique nous donne une indication de proportion et est simple de compréhension.
+
 * Timeline <br/>
 De la même manière, ces timelines renseignent sur une information relative, des tailles relatives, et non pas sur des nombres crus ; car ici c'est tout d'abord les proportions qui sont importantes à faire comprendre au spectateur.
 ![timeline1](images/kurz_frise.png)
@@ -32,7 +33,7 @@ Les vidéos de voitures (dashcam, mais aussi télévision pour les grandprix, et
 * Formule 1 <br/>
 On peut voir dans cette vidéo un compteur en semi transparence qui permet d’avoir énormément d’informations sur l’état de la conduite sans empêcher la vue sur l’ensemble de la course. Bien sûr ici le but est d’ajouter au spectacle, des informations supplémentaires.
 On peut voir que ce type de diagramme mixte permet de d’inclure énormément d’informations: on a par exemple de l’information sur les tours par minute du moteur, un information sur la position du levier de vitesse, la vélocité du véhicule et l’utilisation des pédales
-![rally](src)
+![f1](src)
 <a href="https://www.youtube.com/watch?v=6yXv9SeahV8">source</a>
 
 
