@@ -1,7 +1,8 @@
 # Etat de l’art des différentes visualisations que l’on peut inclure dans une vidéo.
 
 ## Introduction
-Le but de ce document est de présenter les différentes visualisations actuelles dans les domaines que nous avons étudié au cours du projet informatique numéro 8 sur les insertions de visualisations dans des vidéos de drone et de dashcam. On cherche à présenter les différents domaines d’utilisation avec les graphiques associés les plus adaptés à ces différents scénarios
+Le but de ce document est de présenter les différentes visualisations utilisées pour représenter un graphique dans une vidéo quel qu’en soit le domaine d’application. L’objectif est de montrer la diversité des tracés et la façon que chacun a de les mettre en forme, de les utiliser dans une vidéo afin de véhiculer de l'information supplémentaire de manière compréhensible.
+
 
 ## Vulgarisation 
 Ce type de vidéos s'adresse à un public pas forcément toujours éduqué sur le sujet, c'est pourquoi il faut que l'auteur fasse des choses simples, visuelles et qui ne demandent pas une forte capacité d'analyse.
