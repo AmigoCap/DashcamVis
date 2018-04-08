@@ -11,6 +11,7 @@ Les vidéos de voitures (dashcam, mais aussi télévision pour les grandprix, et
 Dans cette vidéo de rally, on voit par exemple des graphiques renseignant sur le nombre de tours par minute effectués par le moteur ou encore un compteur de vitesse. Ces graphiques ont la forme de compteurs que l'on peut trouver dans une voiture afin de paraître familier à l'utilisateur et donc faciliter sa lecture.
 ![rally](images/sportscar.png)
 <a href="https://www.youtube.com/watch?v=CnXahzECtUo">source</a><br/>
+
 Dans cette vidéo on a 4 types de visualisations : Des cadrans ressemblant à des compteurs de voiture, des jauges se remplissant, des emplacements de texte et un graphique du type linechart.
 Les données présentes sont des données physiques sur l'état du véhicule (accélération, freinage, rotations par minutes du moteur, vitesse linéaire instantanée, rapport enclenché, un baromètre de pression) ou de l'environnement (température de l'air en entrée de l'aération) et une donnée de temps (depuis le départ). Ces données sont rafraîchies en temps réel au fur et à mesure de la vidéo.
 
