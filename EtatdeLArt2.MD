@@ -10,7 +10,13 @@ Les vidéos de voitures (dashcam, mais aussi télévision pour les grandprix, et
 * Dashcam de Rally <br/>
 Dans cette vidéo de rally, on voit par exemple des graphiques renseignant sur le nombre de tours par minute effectués par le moteur ou encore un compteur de vitesse. Ces graphiques ont la forme de compteurs que l'on peut trouver dans une voiture afin de paraître familier à l'utilisateur et donc faciliter sa lecture.
 ![rally](images/sportscar.png)
-<a href="https://www.youtube.com/watch?v=CnXahzECtUo">source</a>
+<a href="https://www.youtube.com/watch?v=CnXahzECtUo">source</a><br/>
+Dans cette vidéo on a 4 types de visualisations : Des cadrans ressemblant à des compteurs de voiture, des jauges se remplissant, des emplacements de texte et un graphique du type linechart.
+Les données présentes sont des données physiques sur l'état du véhicule (accélération, freinage, rotations par minutes du moteur, vitesse linéaire instantanée, rapport enclenché, un baromètre de pression) ou de l'environnement (température de l'air en entrée de l'aération) et une donnée de temps (depuis le départ). Ces données sont rafraîchies en temps réel au fur et à mesure de la vidéo.
+
+Les graphiques sous forme de compteur de voiture possèdent des curseurs qui pointent sur une échelle pour indiquer une valeur, tant dis que les jauges n'ont pas de données numériques mais indiquent plutôt une proportion. Le graphique temporel montrant la température de l'air entrant n'a pas besoin de curseur non plus car l'instant présent est représenté à l'extrémité droite du graphique.
+
+Tout ces indicateurs sont là pour aider le spectateurs à comprendre le comportement de la voiture ainsi que le pilotage du conducteur.
 
 * Formule 1 <br/>
 On peut voir dans cette vidéo un compteur en semi transparence qui permet d’avoir énormément d’informations sur l’état de la conduite sans empêcher la vue sur l’ensemble de la course. Bien sûr ici le but est d’ajouter au spectacle, des informations supplémentaires.
