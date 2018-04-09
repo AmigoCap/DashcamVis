@@ -55,11 +55,14 @@ La timeline est interactive, elle offre la possibilité à l'utilisateur du logi
 Les indicateurs textuels, situés sur la droite de la vidéo, renseigne sur la vitesse de la balle ansi que la vitesse du frappeur au moment de l'impact. Enfin on trouve au même emplacement le spin de la balle. 
 Sous cette zone de texte se situe un emplacement où se dessine une raquette à chaque coup donné par le tennisman. Soit orientée vers la gauche pour un coup droit, soit vers la droite pour un revers. De plus, l'endroit de l'impact peut être connu grâce au dessin de la balle au moment de la frappe.
 
-Grâce à ces graphiques on peut mieux comprendre où frappe la balle lors des swings et se déplacer plus facilement en se repérant grâ à la timeline.
+Grâce à ces graphiques on peut mieux comprendre où frappe la balle lors des swings et se déplacer plus facilement en se repérant grâce à la timeline.
 
 * Football<br/>
 ![foot](images/foot.png)
-<a href="https://www.youtube.com/watch?v=s4PpmGWf9Gc">source</a>
+<a href="https://www.youtube.com/watch?v=s4PpmGWf9Gc">source</a><br/>
+
+Cette vidéo est issue de nos résultats obtenus lors de ce projet. Elle possède une timeline indiquant à chaque frame de la vidéo combien de visage notre algorithme a detecté. Elle permet ainsi à un internaute d'anticiper ce qu'il y aura à l'écran.
+Les données indiquées dessus ne sont pas rafraîchies en temps réelle mais calculées au préalable et un curseur indique la progression de la vidéo.
 
 
 ## Jeux vidéos
