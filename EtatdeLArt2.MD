@@ -50,7 +50,12 @@ Il faut pouvoir montrer au spectateur l'action sans que les informations annexes
 ![tennis](images/tennis.png)
 <a href="https://www.youtube.com/watch?v=9Rt5v_SPk6Y">source</a><br/>
 
+La vidéo ci-dessus comporte 3 types de visualisations : une timeline, des indicateurs chiffrés et un indicateur de frappe de la balle.
+La timeline est interactive, elle offre la possibilité à l'utilisateur du logiciel (pas au spectateur directement) de pouvoir naviguer dans la vidéo plus facilement et d'avant en arrière. De plus, elle est formée de balles de tennis de couleurs différentes pour indiquer les moments où un balle est frappée et si le coup est droit ou est un revert.
+Les indicateurs textuels, situés sur la droite de la vidéo, renseigne sur la vitesse de la balle ansi que la vitesse du frappeur au moment de l'impact. Enfin on trouve au même emplacement le spin de la balle. 
+Sous cette zone de texte se situe un emplacement où se dessine une raquette à chaque coup donné par le tennisman. Soit orientée vers la gauche pour un coup droit, soit vers la droite pour un revers. De plus, l'endroit de l'impact peut être connu grâce au dessin de la balle au moment de la frappe.
 
+Grâce à ces graphiques on peut mieux comprendre où frappe la balle lors des swings et se déplacer plus facilement en se repérant grâ à la timeline.
 
 * Football<br/>
 ![foot](images/foot.png)
