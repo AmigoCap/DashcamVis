@@ -23,11 +23,21 @@ Tout ces indicateurs sont là pour aider le spectateurs à comprendre le comport
 On peut voir dans cette vidéo un compteur en semi transparence qui permet d’avoir énormément d’informations sur l’état de la conduite sans empêcher la vue sur l’ensemble de la course. Bien sûr ici le but est d’ajouter au spectacle, des informations supplémentaires.
 On peut voir que ce type de diagramme mixte permet de d’inclure énormément d’informations: on a par exemple de l’information sur les tours par minute du moteur, un information sur la position du levier de vitesse, la vélocité du véhicule et l’utilisation des pédales
 ![f1](images/F1_mixt_chart.png)
-<a href="https://www.youtube.com/watch?v=6yXv9SeahV8">source</a>
+<a href="https://www.youtube.com/watch?v=6yXv9SeahV8">source</a><br/>
+
+Il y 2 types de visualisation dans cette image :: des données textuelles ainsi que des jauges.
+Les jauges renseignent sur la conduite du pilote (accélération ou freinage) ainsi que sur la vitesse du véhicule. Cependant, seule la jauge de vitesse possède une graduation de la même manière que précédemment. Des indications supplémentaires sur le pilotage sont disponibles sous forme de texte avec par exemple le rapport enclenché  actuellement ainsi que le nombre de rotation par minute effectué par l'arbre moteur. Enfin, la vitesse est rappelée sous forme textuelle pour connaître la valeur exacte et des labels sont annotés sur les jauges pour pouvoir les distinguer.
+Le spectateur dispose également du nom ainsi que de la  nationalité et l'écurie pour laquelle le pilote court.
+
+Ces données sont mises à jour instantanément afin de pouvoir aider le spectateur à comprendre la conduite du pilote, mettre un nom sur la personne actuellepment suivie et donc également faciliter la compréhension globale de la course.
+
+
 
 ## Aérospatial 
 ![spacex](images/FalconHeavySpaceX.png)
-<a href="https://www.youtube.com/watch?v=-B_tWbjFIGI">source</a>
+<a href="https://www.youtube.com/watch?v=-B_tWbjFIGI">source</a><br/>
+
+
 
 ## Sports
 * Tennis<br/>
