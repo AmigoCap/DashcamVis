@@ -42,7 +42,12 @@ On compte 3 visualisations différentes : Une timeline au bas de l'image, deux g
 Les jauges circulaires renseignent respectivement sur la vitesse et l'altitude du lanceur alors que le timer nous donne le temps jusqu'au (et ensuite depuis) le lancement. Quandt à elle, la timeline nous indique où l'événement en est ainsi que le prochain événement à venir. Ainsi on peut également avoir accès à la liste des événements en la regardant et l'ordre dans lequel ils s'enchaîneront. Enfin, en estimant la distance les séparant on peut en déduire le temps que chaque événement prend. La timeline est placée au bas de l'image pour rappeler un slider d'une vidéo lambda ou d'un quelconque lecteur de vidéo qui possède classiquement ce slider en bas de son interface.
 
 Toutes ces données sont mises à jour instantanément et offre au spectateur un navigation facilitée dans la vidéo et une capacité de compréhension accrue.
-
+##Dronautique
+![drone](images/drone.png)
+<a href="https://www.youtube.com/watch?v=H7Ym3DMSGms">source</a><br/>
+On peut voir dans cette vidéo une visualisation qui permet d’interpreter les résultats détectés par le drone. On peut voir ici les résultats  de la visualisation qui permettent en cas de défaut de cibler les différents points à améliorer, voir un soucis de détection devient beaucoup plus aisé car c'est une information que l'on a directement sur le flux video de sortie du drone. On peut aussi vérifier si le réseau de neurone qui s’occupe de la classification de l’environnement classe bien les zones de l’image comme étant le chemin à suivre et les zones boisées comme étant des zones dangereuses pour la navigation.
+On remarque que cette visualisation recouvre l'ensemble du champ visuel et n'est constitué que d'une plage de couleur en semi-transparence ainsi on peut mieux comprendre comment le drone fonctionne.
+C'est le genre de visuel qui peut être intéressant pour des drones engagés dans des courses de drones (qui sont des évenements de plus en plus mediatisés) en effet avoir des informations en temps réel sur les zones de danger peut se réveler être un avantage crucial lors du pilotage.
 ## Sports
 * Tennis<br/>
 De la même manière que pour des vidéos de voiture, les vidéos a contenu sportif sont souvent accompagnées soit de graphiques en périphérie de l'image, soit de graphiques en plein écran utilisés lors de séquence où l'action est 'en pose'.
