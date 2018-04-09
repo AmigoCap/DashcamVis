@@ -39,7 +39,7 @@ Ces données sont mises à jour instantanément afin de pouvoir aider le spectat
 
 Cet image est extraite du lancement de Falcon Heavy, le lanceur réutilisable de la société SpaceX. Le phénomène observé est donc assez complexe et d'ordinaire plus artistique que scientifiquement attrayant pour un spectateur lambda. C'est pourquoi SpaceX y a ajouté des graphiques pour rendre le contenu plus facilement compréhensible. 
 On compte 3 visualisations différentes : Une timeline au bas de l'image, deux graphiques sous forme de jauges circulaires accompagnées de texte ainsi qu'un timer. 
-Les jauges circulaires renseignent respectivement sur la vitesse et l'altitude du lanceur alors que le timer nous donne le temps jusqu'au (et ensuite depuis) le lancement. Quandt à elle, la timeline nous indique où l'événement en est ainsi que le prochain événement à venir. Ainsi on peut également avoir accès à la liste des événements en la regardant et l'ordre dans lequel ils s'enchaîneront. Enfin, en estimant la distance les séparant on peut en déduire le temps que chaque événement prend. 
+Les jauges circulaires renseignent respectivement sur la vitesse et l'altitude du lanceur alors que le timer nous donne le temps jusqu'au (et ensuite depuis) le lancement. Quandt à elle, la timeline nous indique où l'événement en est ainsi que le prochain événement à venir. Ainsi on peut également avoir accès à la liste des événements en la regardant et l'ordre dans lequel ils s'enchaîneront. Enfin, en estimant la distance les séparant on peut en déduire le temps que chaque événement prend. La timeline est placée au bas de l'image pour rappeler un slider d'une vidéo lambda ou d'un quelconque lecteur de vidéo qui possède classiquement ce slider en bas de son interface.
 
 Toutes ces données sont mises à jour instantanément et offre au spectateur un navigation facilitée dans la vidéo et une capacité de compréhension accrue.
 
@@ -48,7 +48,9 @@ Toutes ces données sont mises à jour instantanément et offre au spectateur un
 De la même manière que pour des vidéos de voiture, les vidéos a contenu sportif sont souvent accompagnées soit de graphiques en périphérie de l'image, soit de graphiques en plein écran utilisés lors de séquence où l'action est 'en pose'.
 Il faut pouvoir montrer au spectateur l'action sans que les informations annexes ne gâche son expérience.
 ![tennis](images/tennis.png)
-<a href="https://www.youtube.com/watch?v=9Rt5v_SPk6Y">source</a>
+<a href="https://www.youtube.com/watch?v=9Rt5v_SPk6Y">source</a><br/>
+
+
 
 * Football<br/>
 ![foot](images/foot.png)
