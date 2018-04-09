@@ -25,7 +25,7 @@ On peut voir que ce type de diagramme mixte permet de d’inclure énormément d
 ![f1](images/F1_mixt_chart.png)
 <a href="https://www.youtube.com/watch?v=6yXv9SeahV8">source</a><br/>
 
-Il y 2 types de visualisation dans cette image :: des données textuelles ainsi que des jauges.
+Il y 2 types de visualisation dans cette image : des données textuelles ainsi que des jauges.
 Les jauges renseignent sur la conduite du pilote (accélération ou freinage) ainsi que sur la vitesse du véhicule. Cependant, seule la jauge de vitesse possède une graduation de la même manière que précédemment. Des indications supplémentaires sur le pilotage sont disponibles sous forme de texte avec par exemple le rapport enclenché  actuellement ainsi que le nombre de rotation par minute effectué par l'arbre moteur. Enfin, la vitesse est rappelée sous forme textuelle pour connaître la valeur exacte et des labels sont annotés sur les jauges pour pouvoir les distinguer.
 Le spectateur dispose également du nom ainsi que de la  nationalité et l'écurie pour laquelle le pilote court.
 
@@ -37,7 +37,11 @@ Ces données sont mises à jour instantanément afin de pouvoir aider le spectat
 ![spacex](images/FalconHeavySpaceX.png)
 <a href="https://www.youtube.com/watch?v=-B_tWbjFIGI">source</a><br/>
 
+Cet image est extraite du lancement de Falcon Heavy, le lanceur réutilisable de la société SpaceX. Le phénomène observé est donc assez complexe et d'ordinaire plus artistique que scientifiquement attrayant pour un spectateur lambda. C'est pourquoi SpaceX y a ajouté des graphiques pour rendre le contenu plus facilement compréhensible. 
+On compte 3 visualisations différentes : Une timeline au bas de l'image, deux graphiques sous forme de jauges circulaires accompagnées de texte ainsi qu'un timer. 
+Les jauges circulaires renseignent respectivement sur la vitesse et l'altitude du lanceur alors que le timer nous donne le temps jusqu'au (et ensuite depuis) le lancement. Quandt à elle, la timeline nous indique où l'événement en est ainsi que le prochain événement à venir. Ainsi on peut également avoir accès à la liste des événements en la regardant et l'ordre dans lequel ils s'enchaîneront. Enfin, en estimant la distance les séparant on peut en déduire le temps que chaque événement prend. 
 
+Toutes ces données sont mises à jour instantanément et offre au spectateur un navigation facilitée dans la vidéo et une capacité de compréhension accrue.
 
 ## Sports
 * Tennis<br/>
