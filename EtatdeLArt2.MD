@@ -39,6 +39,18 @@ Cette vidéo diffère de celles précédentes dans le sens où l'auteur n'a pas 
 
 Ces informations servent au spectateur à mieux percevoir le chemin effectué par la voiture grâce à la carte ainsi que d'avoir une idée de la conduite adoptée par le créateur de la vidéo. L'indication de temps lui permet également de connaître le temps que le conducteur a mit pour aller d'un point A à un point B mais ne permet pas franchement de naviguer facilement dans la vidéo (pas plus que le slider youtube par exemple).
 
+* Indicateur d'inclinaison <br/>
+![inclinaison](images/inclinaison.png)
+<a href="https://www.youtube.com/watch?v=fXkb6Jxzu-8">source</a><br/>
+
+Dans cette vidéo est fait la démonstration d'un instrument de mesure de l'inclinaison d'une voitre durant sa conduite. Afin de pouvoir présenter les possibilités offertes par cet instrument, la vidéo comporte 2 types de graphiques : Des graphiques gyroscopiques et un cadrant de voiture.
+Le cadrant de voiture indique la vitesse du véhicule et les gyroscopes indiquent son inclinaison selon les 3 axes. 
+Les deux gyroscopes en bas à gauche de l'image sont des représentations de la voiture sur un sol et ces cercles tournent selon un axe perpendiculaire à l'écran pour transmettre l'information d'inclinaison. Le troisième gyroscope quant à lui doit renseigner l'inclinaison de la voiture selon un axe perpendiculaire à la route, il est difficile de le visualiser de la même manière que les autres, alors le vidéaste utilise un cercle gradué placé au centre du cadrant de voiture (en bas à droite) qui sert de repère au positionement d'une boule rouge qui matérialise la voiture. Cette boule rouge se déplace dans le cercle : l'angle indique la direction de l'inclinaison et la distance par rapport au centre indique l'intensité de cette dernière.
+
+Les données sont rafraîchies en temps réel et le cadrant indique une valeur numérique sous forme de texte en plus du curseur pointant vers la vitesse actuelle. 
+
+Ces indicateurs aident le spectateur à connaître l'état dans lequel se trouve la voiture à tout instant.
+
 ## Aérospatial 
 ![spacex](images/FalconHeavySpaceX.png)
 <a href="https://www.youtube.com/watch?v=-B_tWbjFIGI">source</a><br/>
