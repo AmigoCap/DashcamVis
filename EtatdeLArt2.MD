@@ -52,6 +52,17 @@ Les données sont rafraîchies en temps réel et le cadrant indique une valeur n
 
 Ces indicateurs aident le spectateur à connaître l'état dans lequel se trouve la voiture à tout instant.
 
+* Dashcam lambda <br/>
+![dashcam2](images/dashcam.png)
+<a href="https://www.youtube.com/watch?v=DYrw_Vndr3A">source</a><br/>
+
+Sur cet image on peut voir qu'il y a 5 types de visualisations : Des graphiques linechart sur fond transparent, un compteur de voiture, une boussole, un graphique représentant l'accélération subie et du texte à droit de l'image.
+Le compteur dispose d'un curseur qui se déplace le long des graduation ainsi que d'une zone de texte rappelant la vitesse du véhicule. Les graphiques sans fond sont des tracés du parcours du véhicule sur lesquels se trouvent des points indiquant la position de la voiture.
+L'accélération subie par le conducteur est représentée de la même manière que précédemment, avec un cercle au centre duquel se trouve un point rouge pouvant se déplacer dans le cercle.
+Enfin, le texte à droit de l'image renseigne sur l'état du véhicule et apporte une redondance avec certains graphiques.
+
+Ces indicateurs sont ici pour offrir au spectateur une meilleur compréhension de la vidéo et des conditions de conduite.
+
 ## Aérospatial 
 ![spacex](images/FalconHeavySpaceX.png)
 <a href="https://www.youtube.com/watch?v=-B_tWbjFIGI">source</a><br/>
