@@ -87,4 +87,6 @@ Dans la première image, le graphique correspond en des connexions neuronales qu
 <a href="https://www.youtube.com/watch?v=qv6UVOQ0F44">source</a><br/>
 Tant dis que sur la seconde image on a deux graphiques : Une carte avec les positions des joueurs dessus, et une carte d'activation des neurones du réseau de neurone utilisé pour entraîner la machine.
 ![mario2](images/mario2.png)
-<a href="https://www.youtube.com/watch?v=Ipi40cb_RsI">source</a>
+<a href="https://www.youtube.com/watch?v=Ipi40cb_RsI">source</a><br/>
+
+Ces visualisations sont pensées pour aider le spectateur à comprendre la façon dont la machine "réfléchit" et "apprend".
