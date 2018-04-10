@@ -49,6 +49,14 @@ Les jauges circulaires renseignent respectivement sur la vitesse et l'altitude d
 
 Toutes ces données sont mises à jour instantanément et offre au spectateur un navigation facilitée dans la vidéo et une capacité de compréhension accrue.
 
+##Dronautique
+![drone](images/drone.png)
+<a href="https://www.youtube.com/watch?v=H7Ym3DMSGms">source</a><br/>
+
+On peut voir dans cette vidéo une visualisation qui permet d’interpreter les résultats détectés par le drone. On peut voir ici les résultats  de la visualisation qui permettent en cas de défaut de cibler les différents points à améliorer, voir un soucis de détection devient beaucoup plus aisé car c'est une information que l'on a directement sur le flux video de sortie du drone. On peut aussi vérifier si le réseau de neurone qui s’occupe de la classification de l’environnement classe bien les zones de l’image comme étant le chemin à suivre et les zones boisées comme étant des zones dangereuses pour la navigation.
+On remarque que cette visualisation recouvre l'ensemble du champ visuel et n'est constitué que d'une plage de couleur en semi-transparence ainsi on peut mieux comprendre comment le drone fonctionne.
+C'est le genre de visuel qui peut être intéressant pour des drones engagés dans des courses de drones (qui sont des évenements de plus en plus mediatisés) en effet avoir des informations en temps réel sur les zones de danger peut se réveler être un avantage crucial lors du pilotage.
+
 ## Sports
 * Tennis<br/>
 De la même manière que pour des vidéos de voiture, les vidéos a contenu sportif sont souvent accompagnées soit de graphiques en périphérie de l'image, soit de graphiques en plein écran utilisés lors de séquence où l'action est 'en pose'.
