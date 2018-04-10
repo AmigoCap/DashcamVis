@@ -43,9 +43,10 @@ Ces informations servent au spectateur à mieux percevoir le chemin effectué pa
 ![inclinaison](images/inclinaison.png)
 <a href="https://www.youtube.com/watch?v=fXkb6Jxzu-8">source</a><br/>
 
-Dans cette vidéo est fait la démonstration d'un instrument de mesure de l'inclinaison d'une voitre durant sa conduite. Afin de pouvoir présenter les possibilités offertes par cet instrument, la vidéo comporte 2 types de graphiques : Des graphiques gyroscopiques et un cadrant de voiture.
+Dans cette vidéo est fait la démonstration d'un instrument de mesure de l'inclinaison d'une voitre durant sa conduite. Afin de pouvoir présenter les possibilités offertes par cet instrument, la vidéo comporte 3 types de graphiques : Des graphiques gyroscopiques, un cadrant de voiture et une jauge horizontale.
 Le cadrant de voiture indique la vitesse du véhicule et les gyroscopes indiquent son inclinaison selon les 3 axes. 
 Les deux gyroscopes en bas à gauche de l'image sont des représentations de la voiture sur un sol et ces cercles tournent selon un axe perpendiculaire à l'écran pour transmettre l'information d'inclinaison. Le troisième gyroscope quant à lui doit renseigner l'inclinaison de la voiture selon un axe perpendiculaire à la route, il est difficile de le visualiser de la même manière que les autres, alors le vidéaste utilise un cercle gradué placé au centre du cadrant de voiture (en bas à droite) qui sert de repère au positionement d'une boule rouge qui matérialise la voiture. Cette boule rouge se déplace dans le cercle : l'angle indique la direction de l'inclinaison et la distance par rapport au centre indique l'intensité de cette dernière.
+La jauge horizontale sert à mesurer l'intensité de l'accélération subie par le véhicule, on retrouve l'unité "G" (pour l'accélération de pesenteur) ainsi qu'un indexe "1" qui indique que l'accélération est égale à G.
 
 Les données sont rafraîchies en temps réel et le cadrant indique une valeur numérique sous forme de texte en plus du curseur pointant vers la vitesse actuelle. 
 
